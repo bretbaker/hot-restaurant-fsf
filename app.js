@@ -1,27 +1,30 @@
 // dependencies
-const express= require('express');
+const express = require('express');
+const path = require("path");
 const app = express();
 const PORT = 3000;
 
+// Sets up the Express app to handle data parsing
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+
 // data
-function Reservation(name, phoneNumber, eMail, uniqueID) {
-  this.name = name;
-  this.phoneNumber = phoneNumber;
-  this.eMail = eMail;
-  this.uniqueID = uniqueID;
-};
+let reservations = [];
 
-let submit = document.getElementById(submit);
-let name = document.getElementById(name);
-let phoneNumber = document.getElementById(phoneNumber);
-let eMail = document.getElementById(eMail);
-let uniqueID = document.getElementById(uniqueID);
+// routes
+// =================================================
+// Basic route that sends the user first to the AJAX Page
+app.get("/", function (req, res) {
+  res.sendFile(path.join(__dirname, "reservation.html"));
+});
 
-let newReservation = new Reservation(name.value, phoneNumber.value, eMail.value, uniqueID.value);
+// Create New Reservations - takes in JSON input
+app.post("/api/reservations", function (req, res) {
+  // req.body hosts is equal to the JSON post sent from the user
+  // This works because of our body parsing middleware
+  
 
-submit.onclick = () => {
-  newReservation();
-};
+});
 
 
 // open port
